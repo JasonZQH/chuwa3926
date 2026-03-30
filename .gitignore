@@ -1,0 +1,57 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+
+# Java compiled files
+*.class
+
+# Java package files
+*.jar
+*.war
+*.ear
+
+# IntelliJ / IDE
+.idea/
+*.iml
+out/
+
+# VSCode
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# OS files
+Thumbs.db
+
+# Database local files (optional but recommended)
+*.sqlite
+*.db
+
+# PostgreSQL dump files
+*.dump
+*.backup
+
+# Temporary files
+*.tmp
+*.temp
+
+# node (if any future usage)
+node_modules/
+
+# Python (just in case)
+__pycache__/
+*.pyc
