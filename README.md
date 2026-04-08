@@ -1,81 +1,303 @@
+# Spring Boot Redbook
 
-# Chuwa Training
+A Spring Boot REST API demo for posts, comments, authentication, validation, Swagger, and local HTTPS development.
 
-## How to submit your assignments using this repo
+## Stack
 
-### Step 1: Fork this repo
-Students **must fork** this repository to their own GitHub account first.
+- Java 11+
+- Spring Boot 2.7.3
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- JWT
+- PostgreSQL / MySQL via Spring profiles
+- Swagger (Springfox 3)
+- AOP logging
 
-Click **Fork** on the top-right corner of this repo.
+## Features
 
----
+- CRUD APIs for posts
+- CRUD APIs for comments
+- User signup and signin with JWT
+- Request validation with `@Valid`
+- Global exception handling
+- Swagger API documentation
+- Local HTTPS with a self-signed certificate
+- HTTP to HTTPS redirect for local testing
 
-### Step 2: Clone *your forked repo*
-Open your terminal and run:
+## Project Structure
 
-```bash
-cd your_work_dir
-git clone https://github.com/<your_github_username>/chuwa3926.git
-cd chuwa3926
+```text
+src/main/java/com/chuwa/redbook
+├── aop
+├── config
+├── controller
+├── dao
+├── entity
+├── exception
+├── payload
+├── security
+├── service
+└── util
 ```
 
-(Optional but recommended) Add the original repo as upstream:
-```bash
-git remote add upstream https://github.com/KKKTT-cyk/chuwa3926.git
+## Database Profiles
+
+This project supports both MySQL and PostgreSQL by using Spring profiles.
+
+- Default profile: `postgres`
+- PostgreSQL config: `src/main/resources/application-postgres.properties`
+- MySQL config: `src/main/resources/application-mysql.properties`
+- Shared config: `src/main/resources/application.properties`
+
+To switch to MySQL:
+
+```properties
+spring.profiles.active=mysql
 ```
 
-## Step 3: Create your own master branch
+Or run with:
 
-Create a personal master branch in your fork:
 ```bash
-git checkout -b firstName_lastName/master
-git push origin firstName_lastName/master
+./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
 ```
 
-## Step 4: Create a homework feature branch
+## Local PostgreSQL Setup
 
-For each homework, create a new branch from your own master branch:
-```bash
-git checkout firstName_lastName/master
-git checkout -b firstName_lastName/hw1
-```
-Work on your assignment, then commit and push:
-```bash
-git add .
-git commit -m "Finish HW1"
-git push origin firstName_lastName/hw1
+The current default profile is PostgreSQL.
+
+Example PostgreSQL connection:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/redbook
+spring.datasource.username=postgres
+spring.datasource.password=your_password
 ```
 
-## Step 5: Raise a Pull Request (PR)
+### Create the database
 
-Go to your fork on GitHub.
+Create a local database named `redbook` in pgAdmin or PostgreSQL CLI.
 
-Create a Pull Request:
+### Start the application once to create tables
 
-# HW Submissions
+```bash
+./mvnw spring-boot:run
+```
 
-| GitHub | Student Name | HW | PR Status | Submitted At | PR URL |
-|--------|--------------|----|-----------|--------------|--------|
-| Alex-S-2026 | Alex Shen | hw1 | open | 2026-03-12 00:18:43 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/7) |
-| Alex-S-2026 | Alex Shen | hw2 | open | 2026-03-14 00:29:26 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/13) |
-| Alex-S-2026 | Alex Shen | hw3 | open | 2026-03-17 00:29:21 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/20) |
-| ArbitaryMouse | Ziang Qin | hw2 | open | 2026-03-14 03:55:28 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/14) |
-| ArbitaryMouse | Ziang Qin | hw3 | open | 2026-03-14 05:44:25 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/15) |
-| ArbitaryMouse | Ziang Qin | hw4 | open | 2026-03-17 16:44:08 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/21) |
-| CaliforniaNo1 | Hongpeng Zhang | hw1 | open | 2026-03-11 05:12:07 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/1) |
-| Jiashu-Hu | Jiashu Hu | hw1 | open | 2026-03-11 18:30:25 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/4) |
-| Jiashu-Hu | Jiashu Hu | hw2 | open | 2026-03-13 07:50:07 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/9) |
-| luckyango | Shuyang Zhang | hw1 | open | 2026-03-11 22:19:02 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/6) |
-| luckyango | Shuyang Zhang | hw2 | open | 2026-03-13 21:49:24 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/11) |
-| luckyango | Shuyang Zhang | hw3 | open | 2026-03-16 22:18:01 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/18) |
-| lwwang26 | Liwen Wang | hw1 | open | 2026-03-11 20:01:01 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/5) |
-| lwwang26 | Liwen Wang | hw2 | open | 2026-03-13 16:39:05 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/10) |
-| lwwang26 | Liwen Wang | hw3 | open | 2026-03-16 22:09:43 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/17) |
-| tannicjacket | Jiaen Xu | hw1 | open | 2026-03-11 06:17:38 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/2) |
-| tannicjacket | Jiaen Xu | hw2 | open | 2026-03-13 06:34:51 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/8) |
-| tannicjacket | Jiaen Xu | hw3 | open | 2026-03-16 01:16:01 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/16) |
-| w4083756 | Aiqin Wang | hw1 | open | 2026-03-11 06:35:21 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/3) |
-| w4083756 | Aiqin Wang | hw2 | open | 2026-03-13 22:01:36 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/12) |
-| w4083756 | Aiqin Wang | hw3 | open | 2026-03-16 22:31:49 | [link](https://github.com/KKKTT-cyk/chuwa3926/pull/19) |
+With `spring.jpa.hibernate.ddl-auto=update`, Hibernate will create the schema automatically.
 
+### Initialize roles
 
+Before testing signup/signin, insert required roles:
+
+```sql
+INSERT INTO roles(name) VALUES ('ROLE_ADMIN');
+INSERT INTO roles(name) VALUES ('ROLE_USER');
+```
+
+Without these rows, signup will fail because the application looks up `ROLE_ADMIN` or `ROLE_USER` during registration.
+
+## Local HTTPS Setup
+
+This project is already configured to run with HTTPS locally using a self-signed certificate.
+
+### Current ports
+
+- HTTPS application port: `8443`
+- HTTP redirect port: `8080`
+
+### Current SSL settings
+
+Configured in `src/main/resources/application.properties`:
+
+```properties
+server.port=8443
+server.ssl.enabled=true
+server.ssl.key-store=classpath:redbook-local.p12
+server.ssl.key-store-type=PKCS12
+server.ssl.key-store-password=changeit
+server.ssl.key-alias=redbook-local
+app.http.port=8080
+```
+
+### Self-signed certificate file
+
+The local certificate is stored at:
+
+```text
+src/main/resources/redbook-local.p12
+```
+
+### Regenerate the certificate
+
+If you want to regenerate the local self-signed certificate, run:
+
+```bash
+keytool -genkeypair \
+  -alias redbook-local \
+  -keyalg RSA \
+  -keysize 2048 \
+  -storetype PKCS12 \
+  -keystore src/main/resources/redbook-local.p12 \
+  -validity 3650 \
+  -storepass changeit \
+  -keypass changeit \
+  -dname "CN=localhost, OU=Dev, O=Chuwa, L=San Francisco, ST=CA, C=US" \
+  -ext "SAN=dns:localhost,ip:127.0.0.1"
+```
+
+The `SAN` value is important for local HTTPS validation with `localhost`.
+
+## HTTP to HTTPS Redirect
+
+HTTP redirect is implemented in:
+
+```text
+src/main/java/com/chuwa/redbook/config/HttpsRedirectConfig.java
+```
+
+Behavior:
+
+- Requests to `http://localhost:8080/...`
+- are redirected to `https://localhost:8443/...`
+
+If `8080` is already in use on your machine, the app will fail to start. In that case:
+
+1. Stop the process using `8080`, or
+2. Change the redirect port in `application.properties`
+
+Example:
+
+```properties
+app.http.port=8081
+```
+
+## Run the Application
+
+Start the application:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Successful startup should show something similar to:
+
+```text
+Tomcat started on port(s): 8443 (https) 8080 (http)
+Started RedbookApplication
+```
+
+## Verify HTTPS and Redirect
+
+### Verify HTTPS directly
+
+Use `curl -k` to skip certificate trust validation for the self-signed certificate:
+
+```bash
+curl -k -I https://localhost:8443/api/v1/posts
+```
+
+Expected result:
+
+- You get an HTTP response from the app
+- A `401` response is acceptable for protected endpoints because it means HTTPS is working and Spring Security handled the request
+
+### Verify HTTP redirect
+
+```bash
+curl -k -I http://localhost:8080/api/v1/posts
+```
+
+Expected result:
+
+- `302 Found`
+- `Location: https://localhost:8443/api/v1/posts`
+
+### Verify redirect without following it
+
+```bash
+curl -k -I -L --max-redirs 0 http://localhost:8080/api/v1/posts
+```
+
+Expected result:
+
+- Response includes the HTTPS `Location` header
+
+## Test APIs with curl
+
+### Signup
+
+```bash
+curl -k -X POST https://localhost:8443/api/v1/auth/jwt/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name":"test user",
+    "account":"chuwa_test",
+    "email":"test@example.com",
+    "password":"123456"
+  }'
+```
+
+### Signin
+
+```bash
+curl -k -X POST https://localhost:8443/api/v1/auth/jwt/signin \
+  -H "Content-Type: application/json" \
+  -d '{
+    "accountOrEmail":"test@example.com",
+    "password":"123456"
+  }'
+```
+
+### Get posts
+
+```bash
+curl -k https://localhost:8443/api/v1/posts
+```
+
+### Create a post with JWT
+
+```bash
+curl -k -X POST https://localhost:8443/api/v1/posts \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{
+    "title":"My first post",
+    "description":"This is my first post description",
+    "content":"This is the content of my first post."
+  }'
+```
+
+## Swagger
+
+After startup, try one of these URLs in your browser:
+
+- `https://localhost:8443/swagger-ui/`
+- `https://localhost:8443/swagger-ui/index.html`
+
+Because the certificate is self-signed, your browser may show a security warning first. That is expected in local development.
+
+## Validation
+
+Validation is enabled for:
+
+- `PostDto`
+- `CommentDto`
+- `@Valid @RequestBody` in post and comment controllers
+
+Examples:
+
+- Post title must not be empty
+- Post description must be at least 10 characters
+- Comment body must be at least 5 characters
+- Comment email must be a valid email format
+
+## Notes
+
+- The project defaults to PostgreSQL right now.
+- `curl -k` is the easiest way to test self-signed HTTPS from terminal.
+- If signup succeeds but signin fails, check whether the user was created and whether roles exist in the database.
+- If the app fails on startup, check:
+  - database connectivity
+  - port conflicts
+  - SSL keystore path and password
